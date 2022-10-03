@@ -24,20 +24,7 @@ class _CommentPageState extends State<CommentPage> {
   FoodService foodService = FoodService();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    int _selectedIndex = 0;
-
-    void _onItemTapped(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -152,7 +139,6 @@ class _CommentPageState extends State<CommentPage> {
                               stream: foodService.getComments(widget.mainYemek),
                               builder: (BuildContext context,
                                   AsyncSnapshot<dynamic> snapshot) {
-
                                 return !snapshot.hasData
                                     ? CircularProgressIndicator(
                                         color: Colors.red,
@@ -161,17 +147,55 @@ class _CommentPageState extends State<CommentPage> {
                                         scrollDirection: Axis.vertical,
                                         itemCount: snapshot.data.docs.length,
                                         itemBuilder: (context, index) {
-
                                           var commentList = snapshot.data.docs;
+
+                                          var hourDif = DateTime.now().hour -
+                                              DateTime.parse(commentList[index]
+                                                          ["time"]
+                                                      .toDate()
+                                                      .toString())
+                                                  .hour;
+                                          var minDif = DateTime.now().minute -
+                                              DateTime.parse(commentList[index]
+                                                          ["time"]
+                                                      .toDate()
+                                                      .toString())
+                                                  .minute;
 
                                           return Card(
                                             color: Colors.white,
                                             child: Container(
-                                              height: 30,
-                                              child: Text(
-                                                  commentList[index]["userName"] +
-                                                      ": " +
-                                                      commentList[index]["comment"]),
+                                              height: 20,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          commentList[index]
+                                                                  ["userName"] + ": "
+                                                        ,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                        Text(commentList[index]
+                                                        ["comment"])
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  new Spacer(),
+                                                  Expanded(
+                                                    child: hourDif != 0
+                                                        ? Text(hourDif
+                                                        .toString() +
+                                                        " saat once")
+                                                        : minDif == 0
+                                                            ? Text(
+                                                                " az once")
+                                                            : Text(minDif
+                                                        .toString() +
+                                                        " dakika once"),
+
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           );
                                         });
