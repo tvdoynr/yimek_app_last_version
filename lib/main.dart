@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yimek_app_lastversion/screens/comment_page.dart';
+import 'package:yimek_app_lastversion/screens/home_page.dart';
 import 'package:yimek_app_lastversion/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 

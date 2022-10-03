@@ -1,15 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:yimek_app_lastversion/models/Yemek.dart';
-import 'package:yimek_app_lastversion/screens/home_page.dart';
-
+import 'package:yimek_app_lastversion/service/food_service.dart';
 import '../service/comment_service.dart';
 
 class CommentPage extends StatefulWidget {
-  final Yemek mainYemek;
+  final String mainYemek;
+  final String userName;
+  final String userUid;
 
-  const CommentPage({Key? key, required this.mainYemek}) : super(key: key);
+  const CommentPage(
+      {Key? key,
+      required this.mainYemek,
+      required this.userName,
+      required this.userUid})
+      : super(key: key);
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -17,28 +20,11 @@ class CommentPage extends StatefulWidget {
 
 class _CommentPageState extends State<CommentPage> {
   TextEditingController myController = TextEditingController();
-  late String _userName;
-  late String _userUid;
   CommentService commentService = CommentService();
-
-  fetch() async {
-    final _firebaseUser = await FirebaseAuth.instance.currentUser;
-
-    if (_firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('Person')
-          .doc(_firebaseUser.uid)
-          .get()
-          .then((value) {
-        _userName = value.data()!["userName"];
-        _userUid = _firebaseUser.uid;
-      });
-    }
-  }
+  FoodService foodService = FoodService();
 
   @override
   void initState() {
-    fetch();
     super.initState();
   }
 
@@ -61,7 +47,7 @@ class _CommentPageState extends State<CommentPage> {
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    "- " + widget.mainYemek.name + " -",
+                    "- " + widget.mainYemek + " -",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25,
@@ -78,7 +64,9 @@ class _CommentPageState extends State<CommentPage> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                              color: Colors.grey, blurRadius: 20, spreadRadius: 2)
+                              color: Colors.grey,
+                              blurRadius: 20,
+                              spreadRadius: 2)
                         ]),
                     child: Column(
                       children: [
@@ -138,9 +126,16 @@ class _CommentPageState extends State<CommentPage> {
                                     setState(() {
                                       commentService.addComment(
                                           myController.text,
-                                          _userUid,
-                                          _userName,
-                                          widget.mainYemek.name);
+                                          widget.userUid,
+                                          widget.userName,
+                                          widget.mainYemek);
+
+                                      foodService.addFood(
+                                          widget.mainYemek,
+                                          widget.userName,
+                                          widget.userUid,
+                                          myController.text);
+
                                       myController.clear();
                                     });
                                   },
@@ -154,19 +149,9 @@ class _CommentPageState extends State<CommentPage> {
                           child: Padding(
                             padding: EdgeInsets.only(top: 10),
                             child: StreamBuilder(
-                              stream: commentService.getComments(),
+                              stream: foodService.getComments(widget.mainYemek),
                               builder: (BuildContext context,
                                   AsyncSnapshot<dynamic> snapshot) {
-                                var commentList = snapshot.data.docs;
-
-                                var mainYemekYorumlari = [];
-
-                                for (var ele in commentList) {
-                                  if (ele["yemekAdi"] ==
-                                      widget.mainYemek.name) {
-                                    mainYemekYorumlari.add(ele);
-                                  }
-                                }
 
                                 return !snapshot.hasData
                                     ? CircularProgressIndicator(
@@ -174,18 +159,19 @@ class _CommentPageState extends State<CommentPage> {
                                       )
                                     : ListView.builder(
                                         scrollDirection: Axis.vertical,
-                                        itemCount: mainYemekYorumlari.length,
+                                        itemCount: snapshot.data.docs.length,
                                         itemBuilder: (context, index) {
+
+                                          var commentList = snapshot.data.docs;
+
                                           return Card(
                                             color: Colors.white,
                                             child: Container(
                                               height: 30,
                                               child: Text(
-                                                  mainYemekYorumlari[index]
-                                                          ["userName"] +
+                                                  commentList[index]["userName"] +
                                                       ": " +
-                                                      mainYemekYorumlari[index]
-                                                          ["comment"]),
+                                                      commentList[index]["comment"]),
                                             ),
                                           );
                                         });

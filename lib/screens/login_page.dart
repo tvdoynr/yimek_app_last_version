@@ -27,10 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.network(
-                "https://upload.wikimedia.org/wikipedia/tr/thumb/2/28/Hacettepe_%C3%9Cniversitesi_Logosu.svg/1200px-Hacettepe_%C3%9Cniversitesi_Logosu.svg.png",
-                width: 60,
-              ),
+              Image(image: AssetImage("lib/assets/hacettepe.png"),width: 70,),
               SizedBox(
                 height: 10,
               ),
