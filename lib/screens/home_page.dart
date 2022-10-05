@@ -32,18 +32,18 @@ class _HomeState extends State<Home> {
   CommentService commentService = CommentService();
 
   String changeTrLetters(String st) {
-    st = st.replaceAll(RegExp('Ä±'), 'i');
+    st = st.replaceAll(RegExp('Ä±'), 'ı');
     st = st.replaceAll(RegExp('Ã'), 'C');
-    st = st.replaceAll(RegExp('Ã¼'), 'u');
-    st = st.replaceAll(RegExp('Ã§'), 'c');
-    st = st.replaceAll(RegExp('Ä'), 'g');
-    st = st.replaceAll(RegExp('Å'), 's');
-    st = st.replaceAll(RegExp('Ä°'), 'I');
-    st = st.replaceAll(RegExp('Ç'), 'C');
-    st = st.replaceAll(RegExp('Å'), 'S');
-    st = st.replaceAll(RegExp('Ü'), 'U');
-    st = st.replaceAll(RegExp('Ã¶'), 'o');
-    st = st.replaceAll(RegExp('Ã'), 'U');
+    st = st.replaceAll(RegExp('Ã¼'), 'ü');
+    st = st.replaceAll(RegExp('Ã§'), 'ç');
+    st = st.replaceAll(RegExp('Ä'), 'ğ');
+    st = st.replaceAll(RegExp('Å'), 'ş');
+    st = st.replaceAll(RegExp('Ä°'), 'İ');
+    st = st.replaceAll(RegExp('Ç'), 'Ç');
+    st = st.replaceAll(RegExp('Å'), 'Ş');
+    st = st.replaceAll(RegExp('Ü'), 'Ü');
+    st = st.replaceAll(RegExp('Ã¶'), 'ö');
+    st = st.replaceAll(RegExp('Ã'), 'Ü');
     return st;
   }
 
@@ -58,26 +58,19 @@ class _HomeState extends State<Home> {
 
     int yemek_gunu = 0;
     var elements = parsedBody.getElementsByClassName("popular");
-    for (int i = 0; i < elements.length; i++) {
+    for(int i=0;i<elements.length;i++){
       String date = elements[i].text.split(" ")[1];
-      if (date.split(".")[0].length == 1) {
-        date = "0" +
-            date.split(".")[0] +
-            "." +
-            date.split(".")[1] +
-            "." +
-            date.split(".")[2];
+      if(date.split(".")[0].length == 1){
+        date = "0" + date.split(".")[0] + "." + date.split(".")[1] + "." + date.split(".")[2];
       }
       print(date);
-      if (date == formattedDate) {
+      if(date == formattedDate){
         yemek_gunu = i;
       }
     }
 
-    var yemeklerString = parsedBody
-        .getElementsByTagName("P")[yemek_gunu]
-        .innerHtml
-        .split("<br>");
+    var yemeklerString =
+        parsedBody.getElementsByTagName("P")[yemek_gunu].innerHtml.split("<br>");
     setState(() {
       for (int i = 0; i < yemeklerString.length - 1; i++) {
         yemekler.add(changeTrLetters(yemeklerString[i]));
@@ -132,15 +125,10 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
-                      color: Colors.black,
-                      width: 360,
-                      height: 1.5,
-                    ),
+                    Container(color: Colors.black,width: 360,height: 1.5,),
                     Expanded(
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 15),
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: yemekler.length - 2,
@@ -156,21 +144,29 @@ class _HomeState extends State<Home> {
                                     onPressed: () {
                                       setState(() {
                                         mainYemek = yemekler[index + 1];
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CommentPage(
+                                                        mainYemek: mainYemek,
+                                                        userName: _userName,
+                                                        userUid: _userUid)));
                                       });
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CommentPage(
-                                                      mainYemek: mainYemek,
-                                                      userName: _userName,
-                                                      userUid: _userUid)));
                                     },
-                                    child: Text(
-                                      yemekler[index + 1],
-                                      style: const TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                                      child: Text(
+                                        yemekler[index + 1],
+                                        style: const TextStyle(
+                                          fontSize: 20, color: Colors.white
+                                        ),
+                                      )
+                                    /*child: Flexible(
+                                      child: Text(
+                                        yemekler[index + 1],
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                      ),
+                                    )*/,
                                   ),
                                 ),
                               );
@@ -178,18 +174,15 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         children: [
-                          Container(
-                            color: Colors.black,
-                            width: 360,
-                            height: 1.5,
-                          ),
+                          Container(color: Colors.black,width: 360,height: 1.5,),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
-                              "Yakinda...",
+                              "Yakında...",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -239,12 +232,10 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 15,
-                          )
+                          SizedBox(height: 15,)
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               )
@@ -253,4 +244,23 @@ class _HomeState extends State<Home> {
                 color: Colors.red,
               )));
   }
+}
+
+Route _createRoute(String mainYemek, String userName, String userUid) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        CommentPage(mainYemek: mainYemek, userName: userName, userUid: userUid),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

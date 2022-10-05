@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           border: InputBorder.none,
-                          hintText: "Kullanici Adi",
+                          hintText: "Kullanıcı Adı",
                           hintStyle: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -163,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           border: InputBorder.none,
-                          hintText: "Parolayi Tekrar Girin",
+                          hintText: "Parolayı Tekrar Girin",
                           hintStyle: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -192,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             }
                             else{
                               Fluttertoast.showToast(
-                                  msg: "Parolalar Eslesmiyor",  // message
+                                  msg: "Parolalar Eşleşmiyor",  // message
                                   toastLength: Toast.LENGTH_SHORT, // length
                                   gravity: ToastGravity.CENTER,    // location
                                   timeInSecForIosWeb: 1               // duration
@@ -228,7 +228,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("Geri Don"),
+                          child: Text("Geri Dön"),
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(

@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "523777251018",
-    "project_id": "yemekapp-98339",
-    "storage_bucket": "yemekapp-98339.appspot.com"
+    "project_number": "82185040154",
+    "project_id": "rateyourmealuniversity",
+    "storage_bucket": "rateyourmealuniversity.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:523777251018:android:7add8547983f03e1230633",
+        "mobilesdk_app_id": "1:82185040154:android:ad52643a8e8ce602fc7ca3",
         "android_client_info": {
           "package_name": "com.example.yimek_app_lastversion"
         }
       },
       "oauth_client": [
         {
-          "client_id": "523777251018-hubo1ekrhctv8r3uaghhtkq0n1j9vj3v.apps.googleusercontent.com",
+          "client_id": "82185040154-s57ldh79fisu1uasc41ured8s2c7qjkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yimek_app_lastversion",
+            "certificate_hash": "87d701c4c81d0d86535218425ee47fafb34a5be0"
+          }
+        },
+        {
+          "client_id": "82185040154-lfsupk32u1os4091lsvh1kjoj8lfiiv6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChTm5ZVSQ8fXfjX2ibP9LRCFQXGkeRdM0"
+          "current_key": "AIzaSyAMQ9k8qqKbgJMhnAY-iTNN-kTRqmqkFyo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "523777251018-hubo1ekrhctv8r3uaghhtkq0n1j9vj3v.apps.googleusercontent.com",
+              "client_id": "82185040154-lfsupk32u1os4091lsvh1kjoj8lfiiv6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
