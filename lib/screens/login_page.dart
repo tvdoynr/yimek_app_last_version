@@ -164,6 +164,23 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
+                    MaterialButton(
+                      onPressed: () {
+                        _authService
+                            .signInAnonymous()
+                            .then((value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home())));
+                      },
+                      child: Text(
+                        "Anonim olarak devam et",
+                        style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic),
+                      ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      enableFeedback: false,
+                    ),
                   ],
                 ),
               ),

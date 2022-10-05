@@ -88,6 +88,10 @@ class _HomeState extends State<Home> {
     final _firebaseUser = await FirebaseAuth.instance.currentUser;
 
     if (_firebaseUser != null) {
+      if(_firebaseUser.isAnonymous){
+        _userUid = _firebaseUser.uid;
+        _userName = "Anonim";
+      }
       await FirebaseFirestore.instance
           .collection('Person')
           .doc(_firebaseUser.uid)

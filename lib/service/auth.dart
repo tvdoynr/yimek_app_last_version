@@ -16,6 +16,11 @@ class AuthService {
     return await _auth.signOut();
   }
 
+  signInAnonymous() async{
+    var user = await _auth.signInAnonymously();
+    return user.user;
+  }
+
   Future<User?> register(String name, String email, String password) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
