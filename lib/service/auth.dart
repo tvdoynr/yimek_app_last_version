@@ -25,8 +25,12 @@ class AuthService {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
-    await _firestore.collection("Person").doc(user.user?.uid).set({'userName': name,'email': email});
+    await _firestore.collection("Person").doc(user.user?.uid).set({'userName': name,'email': email, 'pictureLink': ""});
 
     return user.user;
+  }
+
+  Future updateUserName(String userName, String userUid) async{
+    return await _firestore.collection("Person").doc(userUid).update({'userName' : userName});
   }
 }

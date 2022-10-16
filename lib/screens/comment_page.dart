@@ -26,7 +26,11 @@ class StarRating extends StatelessWidget {
   final RatingChangeCallback onRatingChanged;
   final Color color;
 
-  StarRating({this.starCount = 5, this.rating = .0, required this.onRatingChanged, required this.color});
+  StarRating(
+      {this.starCount = 5,
+      this.rating = .0,
+      required this.onRatingChanged,
+      required this.color});
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
@@ -35,8 +39,7 @@ class StarRating extends StatelessWidget {
         Icons.star_border,
         color: Theme.of(context).buttonColor,
       );
-    }
-    else if (index > rating - 1 && index < rating) {
+    } else if (index > rating - 1 && index < rating) {
       icon = new Icon(
         Icons.star_half,
         color: color ?? Theme.of(context).primaryColor,
@@ -48,14 +51,17 @@ class StarRating extends StatelessWidget {
       );
     }
     return new InkResponse(
-      onTap: onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
+      onTap:
+          onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
       child: icon,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Row(children: new List.generate(starCount, (index) => buildStar(context, index)));
+    return new Row(
+        children:
+            new List.generate(starCount, (index) => buildStar(context, index)));
   }
 }
 
@@ -133,7 +139,7 @@ class _CommentPageState extends State<CommentPage> {
                                             Radius.circular(20)),
                                         borderSide: BorderSide(
                                             width: 1, color: Colors.white)),
-                                    hintText: "Enter a comment",
+                                    hintText: "Yorum yaz",
                                     hintStyle: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -206,34 +212,57 @@ class _CommentPageState extends State<CommentPage> {
                                           return Card(
                                             color: Colors.white,
                                             child: Container(
-                                              height: 20,
+                                              height: 30,
                                               child: Row(
                                                 children: [
                                                   Expanded(
                                                     child: Row(
                                                       children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.symmetric(horizontal: 5),
+                                                          child: Container(
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                      color: Colors.grey,
+                                                                      boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        blurRadius:
+                                                                            20,
+                                                                        spreadRadius:
+                                                                            2)
+                                                                  ]),
+                                                              child: Icon(
+                                                                  Icons.person,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
                                                         Text(
                                                           commentList[index]
-                                                                  ["userName"] + ": "
-                                                        ,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                                  ["userName"] +
+                                                              ": ",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                         Text(commentList[index]
-                                                        ["comment"])
+                                                            ["comment"])
                                                       ],
                                                     ),
                                                   ),
                                                   new Spacer(),
                                                   Expanded(
                                                     child: hourDif != 0
-                                                        ? Text(hourDif
-                                                        .toString() +
-                                                        " saat once")
+                                                        ? Text(
+                                                            hourDif.toString() +
+                                                                " saat önce")
                                                         : minDif == 0
-                                                            ? Text(
-                                                                " az once")
+                                                            ? Text(" az önce")
                                                             : Text(minDif
-                                                        .toString() +
-                                                        " dakika once"),
-
+                                                                    .toString() +
+                                                                " dakika önce"),
                                                   ),
                                                 ],
                                               ),
