@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           border: InputBorder.none,
-                          hintText: "Password",
+                          hintText: "Parola",
                           hintStyle: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
